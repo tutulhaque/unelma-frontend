@@ -32,7 +32,7 @@ const MissionVision = () => {
         {/* Image Left */}
         <div>
           <img
-            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200"
+            src="http://localhost:1337/uploads/blog_1_9f0922de66.avif?auto=format&fit=crop&q=80&w=1200"
             alt="Our Vision"
             className="w-full h-full object-cover"
           />

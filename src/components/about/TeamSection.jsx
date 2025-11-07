@@ -5,14 +5,14 @@ const teamMembers = [
     name: "Emma Wilson",
     role: "CEO & Founder",
     photo:
-      "https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&q=80&w=500",
+      "http://localhost:1337/uploads/testimonial_3_0f6b91f1c3.jpg?auto=format&fit=crop&q=80&w=500",
     bio: "With over 15 years of experience in digital innovation, Emma leads the company’s strategic vision and growth.",
   },
   {
     name: "Liam Brown",
     role: "Chief Technology Officer",
     photo:
-      "https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&q=80&w=500",
+      "http://localhost:1337/uploads/testimonial_2_0b266aea76.jpg?auto=format&fit=crop&q=80&w=500",
     bio: "A passionate technologist driving innovation and ensuring scalable, cutting-edge solutions for our clients.",
   },
   {
@@ -26,7 +26,7 @@ const teamMembers = [
     name: "Ethan Johnson",
     role: "Project Manager",
     photo:
-      "https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&q=80&w=500",
+      "http://localhost:1337/uploads/44_68dbe2fbee.jpg?auto=format&fit=crop&q=80&w=500",
     bio: "Focused on delivering projects efficiently, Ethan bridges the gap between clients and development teams.",
   },
 ];
