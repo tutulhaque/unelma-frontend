@@ -20,7 +20,6 @@ const SlidingText = () => {
     const totalWidth = container.scrollWidth / 2;
     const duration = 25; // slower, smoother
 
-    // Infinite horizontal slide
     gsap.to(container, {
       x: -totalWidth,
       repeat: -1,
@@ -28,12 +27,11 @@ const SlidingText = () => {
       duration,
     });
 
-    // Pulse animation for each text
     gsap.to(".sliding-item", {
       opacity: 0.6,
       scale: 0.95,
       duration: 1.5,
-      yoyo: "true",
+      yoyo: true,
       repeat: -1,
       ease: "power1.inOut",
       stagger: 0.2,
@@ -42,17 +40,16 @@ const SlidingText = () => {
 
   return (
     <div
-      className="relative w-full overflow-hidden h-[80px] flex items-center"
+      className="relative w-full overflow-hidden h-[70px] flex items-center"
       style={{
         background: "linear-gradient(90deg, #3780B2, #008081)",
       }}
     >
-      {/* Shimmer overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
 
       <div
         ref={containerRef}
-        className="flex whitespace-nowrap space-x-10 text-white text-2xl font-bold items-center h-full"
+        className="flex whitespace-nowrap space-x-8 text-white text-lg md:text-xl font-semibold items-center h-full"
       >
         {slidingTexts.concat(slidingTexts).map((text, i) => (
           <span
@@ -64,7 +61,6 @@ const SlidingText = () => {
         ))}
       </div>
 
-      {/* Shimmer animation style */}
       <style>{`
         @keyframes shimmer {
           0% {
@@ -83,3 +79,4 @@ const SlidingText = () => {
 };
 
 export default SlidingText;
+
