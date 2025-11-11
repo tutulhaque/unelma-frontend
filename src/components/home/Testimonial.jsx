@@ -144,9 +144,8 @@ export default function Testimonial() {
                 key={i}
                 onClick={() => setIndex(i)}
                 aria-label={`Go to slide ${i + 1}`}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  i === index ? "bg-[#3780B2] w-6" : "bg-gray-300"
-                }`}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${i === index ? "bg-[#3780B2] w-6" : "bg-gray-300"
+                  }`}
               />
             ))}
           </div>

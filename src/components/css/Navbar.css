@@ -1,37 +1,67 @@
+/* Navbar.css */
+
 .navbar {
-  background-color: #ffffff;
-  color: #000;
+  position: absolute;        /* overlay the banner */
+  top: 20px;                 /* adjust vertical placement */
+  left: 0;
+  width: 100%;
+  z-index: 60;               /* above swiper and content */
+  background: transparent;   /* allow hero background to show */
+  pointer-events: auto;
 }
 
-.container {
-  max-width: 1200px;
-  margin: auto;
+/* container layout */
+.navbar .container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding-bottom: 10px;
+  justify-content: space-between;
+  padding: 0 24px;           /* tweak to match your site layout */
+  max-width: 1200px;         /* optional */
+  margin: 0 auto;
 }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+/* hide hr when used in banner overlay */
+.navbar hr {
+  display: none;
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
 }
 
+/* link styles for overlay — white text by default */
 .nav-links a {
-  color: #000;
+  color: #ffffff;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  padding: 6px 8px;
+  transition: opacity 0.2s, transform 0.15s;
 }
 
-.nav-links a.active {
-  border-bottom: 2px solid #38bdf8; /* highlight active link */
+
+.nav-links a.active,
+.nav-links a:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  border-bottom: 3px solid rgba(255,255,255,0.15); /* subtle underline */
 }
-hr {
-  color: #efeeee;
+
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 12px;
+    font-size: 14px;
+  }
+
+  .navbar {
+    top: 12px;
+  }
+
+  .navbar img {
+    width: 120px; /* smaller logo */
+  }
 }

@@ -6,6 +6,9 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 
+// Import your Navbar (adjust the path as needed)
+import Navbar from "../Navbar";
+
 const slides = [
   {
     image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
@@ -55,6 +58,9 @@ const Banner = () => {
 
   return (
     <section className="relative w-full h-[90vh] text-white overflow-hidden">
+      {/* Navbar inside the banner */}
+      <Navbar />
+
       <Swiper
         ref={swiperRef}
         modules={[Autoplay, Pagination, EffectFade]}
@@ -73,7 +79,7 @@ const Banner = () => {
               }}
             >
               <div className="slide-content space-y-4">
-                {/* 🌟 Logo / Icon above title */}
+                {/* Icon above title */}
                 <div className="flex justify-center mb-3">
                   <img
                     src={slide.icon}
@@ -99,7 +105,7 @@ const Banner = () => {
                 </button>
               </div>
 
-              {/* Decorative Gradient Blur */}
+              {/* Decorative gradient blur */}
               <div
                 className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[80%] h-[120px] blur-3xl opacity-60"
                 style={{
@@ -115,3 +121,4 @@ const Banner = () => {
 };
 
 export default Banner;
+
