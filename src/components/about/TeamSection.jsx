@@ -2,32 +2,39 @@ import React from "react";
 
 const teamMembers = [
   {
-    name: "Emma Wilson",
-    role: "CEO & Founder",
+    name: "Saif",
+    role: "CEO",
     photo:
-      "http://localhost:1337/uploads/testimonial_3_0f6b91f1c3.jpg?auto=format&fit=crop&q=80&w=500",
-    bio: "With over 15 years of experience in digital innovation, Emma leads the company’s strategic vision and growth.",
+      "https://i.ibb.co/35vD1vbq/saif.jpg?auto=format&fit=crop&q=80&w=400",
+    bio: "With over 15 years of experience in digital innovation, Saif leads the company’s strategic vision and growth.",
   },
   {
-    name: "Liam Brown",
-    role: "Chief Technology Officer",
+    name: "Tanmay",
+    role: "CTO",
     photo:
-      "http://localhost:1337/uploads/testimonial_2_0b266aea76.jpg?auto=format&fit=crop&q=80&w=500",
+      "https://i.ibb.co/8pc7Skf/tanmay.jpg?auto=format&fit=crop&q=80&w=400",
     bio: "A passionate technologist driving innovation and ensuring scalable, cutting-edge solutions for our clients.",
   },
   {
-    name: "Sophia Martinez",
+    name: "Daniel",
     role: "Head of Design",
     photo:
-      "https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&q=80&w=500",
-    bio: "Sophia brings creativity and user-centric design thinking to craft seamless digital experiences.",
+      "https://i.ibb.co/whbBtP3x/daniel.png?auto=format&fit=crop&q=80&w=400",
+    bio: "Daniel brings creativity and user-centric design thinking to craft seamless digital experiences.",
   },
   {
-    name: "Ethan Johnson",
+    name: "Isaac",
     role: "Project Manager",
     photo:
-      "http://localhost:1337/uploads/44_68dbe2fbee.jpg?auto=format&fit=crop&q=80&w=500",
-    bio: "Focused on delivering projects efficiently, Ethan bridges the gap between clients and development teams.",
+      "https://i.ibb.co/zHmW7H0j/isaac.png?auto=format&fit=crop&q=80&w=400",
+    bio: "Focused on delivering projects efficiently, Isaac bridges the gap between clients and development teams.",
+  },
+  {
+    name: "Chinedu",
+    role: "CFO",
+    photo:
+      "https://i.ibb.co/gM76ks6C/chinedu.png?auto=format&fit=crop&q=80&w=400",
+    bio: "Dedicated to financial excellence, Chinedu steers the company’s fiscal strategy and long-term profitability.",
   },
 ];
 
