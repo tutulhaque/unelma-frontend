@@ -10,23 +10,31 @@ function Navbar() {
   const { cartItems, removeFromCart, clearCart } = useCart();
   const [showCart, setShowCart] = useState(false);
 
-  const isSingleProductPage =
-    location.pathname.startsWith("/product/") && location.pathname !== "/product";
-  const linkColorClass = isSingleProductPage ? "text-black" : "text-white";
+  // ✅ White navbar only for single product and checkout pages
+  const isWhiteBgPage =
+    /^\/product\/\d+$/.test(location.pathname) || location.pathname === "/checkout";
+
+  const linkColorClass = isWhiteBgPage ? "text-black" : "text-white";
 
   const toggleCart = () => setShowCart((prev) => !prev);
 
   return (
     <nav
-      className={`navbar ${isSingleProductPage ? "bg-white" : "bg-transparent"}`}
+      className={`navbar ${isWhiteBgPage ? "bg-white" : "bg-transparent"
+        } transition-all duration-300`}
+      style={{
+        margin: 0,
+        border: "none",
+        boxShadow: "none", // ✅ no bottom shadow
+      }}
     >
-      <div className="container flex items-center justify-between relative">
+      <div className="container flex items-center justify-between relative py-2">
         {/* Logo */}
-        <Link to="/">
-          <img className="mt-1.5" width="150px" src={logo} alt="Logo" />
+        <Link to="/" className="flex items-center">
+          <img width="150px" src={logo} alt="Logo" />
         </Link>
 
-        {/* Links */}
+        {/* Navigation Links */}
         <ul className="nav-links flex gap-6 items-center">
           {["/", "/product", "/about", "/blog", "/contact"].map((path, index) => {
             const label = ["Home", "Product", "About", "Blog", "Contact"][index];
@@ -36,10 +44,11 @@ function Navbar() {
                   to={path}
                   end={path === "/"}
                   className={({ isActive }) =>
-                    `${linkColorClass} ${isActive ? "font-semibold underline" : ""}`
+                    `${linkColorClass} ${isActive ? "font-semibold underline" : ""
+                    } transition-colors duration-300`
                   }
                   style={{
-                    color: isSingleProductPage ? "black" : "white",
+                    color: isWhiteBgPage ? "black" : "white",
                   }}
                 >
                   {label}
@@ -48,10 +57,10 @@ function Navbar() {
             );
           })}
 
-          {/* 🛒 Cart Icon */}
+          {/* Cart Icon */}
           <li className="relative cursor-pointer" onClick={toggleCart}>
             <ShoppingCart
-              className={`w-6 h-6 ${isSingleProductPage ? "text-black" : "text-white"
+              className={`w-6 h-6 ${isWhiteBgPage ? "text-black" : "text-white"
                 } hover:scale-110 transition-transform`}
             />
             {cartItems.length > 0 && (
@@ -62,7 +71,7 @@ function Navbar() {
           </li>
         </ul>
 
-        {/* 🧺 Cart Popup */}
+        {/* Cart Popup */}
         {showCart && (
           <div className="absolute right-0 top-12 bg-white shadow-2xl rounded-xl w-80 p-4 z-50">
             <h3 className="text-lg font-semibold mb-3 text-gray-800">Your Cart</h3>
@@ -118,5 +127,10 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
+
+
+
 
 

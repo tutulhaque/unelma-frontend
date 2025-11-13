@@ -8,7 +8,7 @@ const productsData = [
         id: 1,
         name: "Open-source software",
         image:
-            "https://www.unelmaplatforms.com/assets/uploads/media-uploader/grid-open-source-software-icon-181689275745.png",
+            "https://plus.unsplash.com/premium_photo-1733342554594-102b8e2d0623?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDN8fHNvZnR3YXJlfGVufDB8fDB8fHww",
         price: 0,
         features: ["Unelma Platforms brings to you UnelmaBrowser and Unelma-Code Translator - innovative software designed for optimised user experience. With open-source access, full support, maintenance, security provisions, and bug fixes, we ensure a smooth, secure and efficient digital journey."],
         description:
@@ -24,7 +24,7 @@ const productsData = [
         id: 2,
         name: "UnelmaMail",
         image:
-            "https://www.unelmaplatforms.com/assets/uploads/media-uploader/grid-unelma-mail-11-transperency1689274046.png",
+            "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFpbHxlbnwwfHwwfHx8MA%3D%3D",
         price: 49,
         features: ["Explore UnelmaMail, the world's first AI-powered email marketing platform developed by Unelma Platforms. Offering user-friendly and efficient solutions, UnelmaMail revolutionizes the way businesses engage in email marketing strategies for ultimate growth and expansion. Experience the future of email marketing with UnelmaMail."],
         description:
@@ -39,7 +39,7 @@ const productsData = [
     {
         id: 3,
         name: "UnelmaCRM",
-        image: "https://www.unelmaplatforms.com/assets/uploads/media-uploader/grid-unelma-platforms-unelma-crm-image1688587849.jpg",
+        image: "https://plus.unsplash.com/premium_photo-1733328013343-e5ee77acaf05?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Q1JNfGVufDB8fDB8fHww",
         price: 10,
         features: ["When you choose UnelmaCRM, you choose a comprehensive CRM solution that offers 1 year of full support, maintenance, hosting, SaaS, top-notch security, and bug fixes."],
         description:
@@ -54,7 +54,7 @@ const productsData = [
     {
         id: 4,
         name: "UnelmaCloud",
-        image: "https://www.unelmaplatforms.com/assets/uploads/media-uploader/grid-unelmacloud-certificate-for-guru-of-the-day1688581011.jpg",
+        image: "https://plus.unsplash.com/premium_photo-1733306493254-52b143296396?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y2xvdWQlMjBjb21wdXRpbmd8ZW58MHx8MHx8fDA%3D",
         price: 24,
         features: ["With UnelmaCloud, we offer more than just storage space. Our product comes with a comprehensive package that includes one year of full support, maintenance, and security, along with free bug fixes from our experienced team of developers."],
         description:
@@ -149,10 +149,6 @@ const ProductDetails = () => {
                         >
                             <ShoppingCart className="w-5 h-5" />
                             Add to Cart
-                        </button>
-
-                        <button className="bg-[#ff9900] text-white font-semibold py-2 px-6 rounded-lg hover:bg-[#e68a00] transition-colors duration-300 cursor-pointer">
-                            Buy Now
                         </button>
                     </div>
                 </div>

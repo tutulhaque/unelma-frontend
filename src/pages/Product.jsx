@@ -8,38 +8,39 @@ const productsData = [
     id: 1,
     name: "Open-source software",
     image:
-      "https://www.unelmaplatforms.com/assets/uploads/media-uploader/grid-open-source-software-icon-181689275745.png",
+      "https://plus.unsplash.com/premium_photo-1733342554594-102b8e2d0623?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
     price: 0,
-    features: [],
+    type: "product",
   },
   {
     id: 2,
     name: "UnelmaMail",
     image:
-      "https://www.unelmaplatforms.com/assets/uploads/media-uploader/grid-unelma-mail-11-transperency1689274046.png",
+      "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
     price: 49,
-    features: [],
+    type: "product",
   },
   {
     id: 3,
     name: "UnelmaCRM",
-    image: "https://www.unelmaplatforms.com/assets/uploads/media-uploader/grid-unelma-platforms-unelma-crm-image1688587849.jpg",
+    image:
+      "https://plus.unsplash.com/premium_photo-1733328013343-e5ee77acaf05?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
     price: 10,
-    features: [],
+    type: "product",
   },
   {
     id: 4,
     name: "UnelmaCloud",
     image:
-      "https://www.unelmaplatforms.com/assets/uploads/media-uploader/grid-unelmacloud-certificate-for-guru-of-the-day1688581011.jpg",
+      "https://plus.unsplash.com/premium_photo-1733306493254-52b143296396?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
     price: 24,
-    features: [],
+    type: "product",
   },
 ];
 
 const Product = () => {
   const navigate = useNavigate();
-  const { addToCart } = useCart(); // ✅ hook from context
+  const { addToCart } = useCart();
 
   const backgroundImage =
     "https://images.unsplash.com/photo-1503264116251-35a269479413";
@@ -47,15 +48,33 @@ const Product = () => {
 
   const [sortOrder, setSortOrder] = useState("default");
   const [searchTerm, setSearchTerm] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedService, setSelectedService] = useState(null);
+  const [filterType, setFilterType] = useState("all"); // 👈 new filter state
 
-  // Filter & Sort
+  const openModal = (service) => {
+    setSelectedService(service);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedService(null);
+  };
+
+  // ✅ Filter & Sort logic
   const filteredProducts = productsData
-    .filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    .filter((product) => {
+      const matchesSearch = product.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesType =
+        filterType === "all" ? true : product.type === filterType;
+      return matchesSearch && matchesType;
+    })
     .sort((a, b) => {
-      if (sortOrder === "low-to-high") return a.price - b.price;
-      if (sortOrder === "high-to-low") return b.price - a.price;
+      if (sortOrder === "low-to-high") return (a.price || 0) - (b.price || 0);
+      if (sortOrder === "high-to-low") return (b.price || 0) - (a.price || 0);
       return 0;
     });
 
@@ -75,8 +94,8 @@ const Product = () => {
 
       {/* Product Section */}
       <section className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-        {/* Search & Filter */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+        {/* Search, Sort & Filter Bar */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4 flex-wrap">
           {/* Search Bar */}
           <div className="relative w-full md:w-1/3">
             <Search className="absolute left-3 top-3.5 text-gray-400 w-5 h-5" />
@@ -99,6 +118,7 @@ const Product = () => {
             <option value="low-to-high">Price: Low to High</option>
             <option value="high-to-low">Price: High to Low</option>
           </select>
+
         </div>
 
         {/* Products Grid */}
@@ -112,7 +132,10 @@ const Product = () => {
                 {/* Product Image */}
                 <div
                   className="overflow-hidden cursor-pointer"
-                  onClick={() => navigate(`/product/${product.id}`)} // ✅ navigate to single product
+                  onClick={() =>
+                    product.type === "product" &&
+                    navigate(`/product/${product.id}`)
+                  }
                 >
                   <img
                     src={product.image}
@@ -126,25 +149,30 @@ const Product = () => {
                   <h3 className="font-semibold text-lg text-gray-900 mb-1">
                     {product.name}
                   </h3>
-                  <p className="text-[#008081] font-bold mb-2">
-                    ${product.price}
-                  </p>
 
-                  {/* Features */}
-                  <ul className="text-gray-500 text-sm mb-4 list-disc list-inside">
-                    {product.features.map((feature, idx) => (
-                      <li key={idx}>{feature}</li>
-                    ))}
-                  </ul>
+                  {product.type === "product" && (
+                    <p className="text-[#008081] font-bold mb-2">
+                      ${product.price}
+                    </p>
+                  )}
 
-                  {/* Add to Cart Button */}
-                  <button
-                    onClick={() => addToCart(product)} // ✅ add product to global cart
-                    className="mt-auto bg-[#008081] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#006666] transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <ShoppingCart className="w-5 h-5" />
-                    Add to Cart
-                  </button>
+                  {/* Add to Cart / Discuss Button */}
+                  {product.type === "product" ? (
+                    <button
+                      onClick={() => addToCart(product)}
+                      className="mt-auto bg-[#008081] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#006666] transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <ShoppingCart className="w-5 h-5" />
+                      Add to Cart
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => openModal(product)}
+                      className="mt-auto bg-[#ff9900] text-white font-semibold py-2 px-4 rounded-lg hover:bg-[#e68a00] transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      Let’s Discuss
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
@@ -160,11 +188,3 @@ const Product = () => {
 };
 
 export default Product;
-
-
-
-
-
-
-
-
