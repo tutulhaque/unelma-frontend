@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrowRight } from "lucide-react";
 
-const Blog = () => {
+const Blog = ({ title, blogs }) => {
   const posts = [
     {
       id: 1,
@@ -38,7 +38,7 @@ const Blog = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            From Our <span className="text-[#3780B2]">Blog</span>
+            {title} <span className="text-[#3780B2]">Blog</span>
           </h2>
         </div>
 
@@ -46,18 +46,18 @@ const Blog = () => {
           {/* Featured Post */}
           <div className="relative group rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
             <img
-              src={posts[0].img}
+              src={`http://localhost:1337${blogs[0].image?.url}`}
               alt={posts[0].title}
               className="w-full h-[550px] object-cover transform group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div className="absolute bottom-0 left-0 p-8 text-white">
               <p className="text-sm uppercase tracking-wide text-[#FF8A73] font-semibold">
-                {posts[0].date} • {posts[0].author}
+                {posts[0].date}
               </p>
               <h3 className="text-3xl font-bold mt-3 mb-4">{posts[0].title}</h3>
               <p className="text-white/80 text-lg mb-6 max-w-xl">
-                {posts[0].desc}
+                {posts[0].description}
               </p>
               <button className="bg-[#3780B2] hover:bg-[#2386c7] px-5 py-2 rounded-full font-semibold transition-colors">
                 Read More
@@ -67,26 +67,26 @@ const Blog = () => {
 
           {/* Smaller Posts */}
           <div className="flex flex-col gap-6">
-            {posts.slice(1).map((post) => (
+            {blogs.slice(1).map((post) => (
               <div
                 key={post.id}
                 className="group flex flex-col md:flex-row md:items-center gap-6 bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500"
               >
                 <div className="md:w-1/3 h-[200px] overflow-hidden">
                   <img
-                    src={post.img}
+                    src={`http://localhost:1337${post.image.url}`}
                     alt={post.title}
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
                 <div className="flex-1 p-6">
                   <p className="text-sm text-[#3780B2] font-semibold mb-2">
-                    {post.date} • {post.author}
+                    {post.date}
                   </p>
                   <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#3780B2] transition-colors">
                     {post.title}
                   </h4>
-                  <p className="text-gray-600 mb-4">{post.desc}</p>
+                  <p className="text-gray-600 mb-4">{post.description}</p>
                   <button className="inline-flex items-center text-[#3780B2] font-semibold group-hover:text-[#FF8A73] transition-colors">
                     Read More <ArrowRight className="w-4 h-4 ml-1" />
                   </button>

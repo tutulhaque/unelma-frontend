@@ -3,7 +3,6 @@ import { MapPin, Phone, Mail } from "lucide-react";
 
 const Contact = () => {
   const [contacts, setContacts] = useState([]);
-  const API_URL = "http://localhost:1337";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,11 +13,27 @@ const Contact = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
-  // Handle input change
+  const API_URL = "http://localhost:1337";
+
+  useEffect(() => {
+    const fetchContactContent = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/contact?populate=*`);
+        const data = await res.json();
+        setContacts(data.data?.attributes || {});
+      } catch (error) {
+        console.error("Error fetching Contact Page Content:", error);
+      }
+    };
+    fetchContactContent();
+  }, []);
+
+  // 📨 handle input
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  // Handle form submit
+
+  // 📨 handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -32,7 +47,7 @@ const Contact = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          data: formData, // ✅ Strapi v4 expects { data: {...} }
+          data: formData, // Strapi v4 expects data object
         }),
       });
 
@@ -50,19 +65,6 @@ const Contact = () => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    const Contacts = async () => {
-      try {
-        const res = await fetch(`${API_URL}/api/contact?populate=*`);
-        const data = await res.json();
-        setContacts(data.data || []);
-      } catch (error) {
-        console.error("Error fetching Contact Page Content:", error);
-      }
-    };
-    Contacts();
-  }, []);
-  console.log();
   const backgroundImage =
     "https://images.unsplash.com/photo-1503264116251-35a269479413";
 
@@ -76,7 +78,7 @@ const Contact = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-[#3780B2cc] via-[#008081cc] to-black/60"></div>
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[100px] blur-3xl opacity-50 bg-gradient-to-t from-[#008081] to-transparent"></div>
         <h1 className="relative text-3xl md:text-5xl font-bold z-10 drop-shadow-lg">
-          {contacts?.contact_banner_title}
+          {contacts.contact_banner_title || "Contact Us"}
         </h1>
       </section>
 
@@ -86,24 +88,31 @@ const Contact = () => {
           {/* Left Info */}
           <div className="space-y-6">
             <h2 className="text-4xl font-bold mb-4 text-gray-900">
-              {contacts?.contact_title}
+              {contacts.contact_title || "Get in Touch"}
             </h2>
             <p className="text-gray-600 leading-relaxed text-lg mb-8">
-              {contacts?.contact_description}
+              {contacts.contact_description ||
+                "Have questions or want to work together? Drop us a message!"}
             </p>
 
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <MapPin className="w-6 h-6 text-[#3780B2]" />
-                <p className="text-gray-700">{contacts?.address}</p>
+                <p className="text-gray-700">
+                  {contacts.address || "Vaasa, Finland"}
+                </p>
               </div>
               <div className="flex items-center gap-4">
                 <Phone className="w-6 h-6 text-[#3780B2]" />
-                <p className="text-gray-700">{contacts?.phone}</p>
+                <p className="text-gray-700">
+                  {contacts.phone || "+358 123 4567"}
+                </p>
               </div>
               <div className="flex items-center gap-4">
                 <Mail className="w-6 h-6 text-[#3780B2]" />
-                <p className="text-gray-700">{contacts?.email}</p>
+                <p className="text-gray-700">
+                  {contacts.email || "info@example.com"}
+                </p>
               </div>
             </div>
           </div>

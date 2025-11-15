@@ -65,7 +65,7 @@ const portfolios = [
   },
 ];
 
-const Portfolio = () => {
+const Portfolio = ({ title, description, portfolioItems }) => {
   const navPrevRef = useRef(null);
   const navNextRef = useRef(null);
 
@@ -75,11 +75,9 @@ const Portfolio = () => {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Our <span className="text-[#3780B2]">Portfolio</span>
+              {title} <span className="text-[#3780B2]">Portfolio</span>
             </h2>
-            <p className="text-gray-600 mt-2 max-w-2xl">
-              Recent projects — focus on platform, UX and engineering.
-            </p>
+            <p className="text-gray-600 mt-2 max-w-2xl">{description}</p>
           </div>
 
           {/* Nav buttons */}
@@ -120,18 +118,18 @@ const Portfolio = () => {
             speed={600}
             className="py-8"
           >
-            {portfolios.map((p, idx) => (
+            {portfolioItems.map((portfolio) => (
               <SwiperSlide
-                key={p.id}
+                key={portfolio.id}
                 // important: width controls visual rhythm. slidesPerView: 'auto' respects this width.
-                style={{ width: idx % 2 === 0 ? 446 : 360 }}
+                style={{ width: portfolio.id % 2 === 0 ? 446 : 360 }}
                 className="!flex !justify-center"
               >
                 {/* Card container — visual sizing controlled by CSS classes below depending on Swiper state classes */}
                 <div className="portfolio-card relative rounded-2xl overflow-hidden shadow-lg w-full">
                   <img
-                    src={p.img}
-                    alt={p.title}
+                    src={`http://localhost:1337${portfolio.image.url}`}
+                    alt={portfolio.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     style={{ height: 400 }}
                   />
@@ -140,13 +138,13 @@ const Portfolio = () => {
 
                   <div className="absolute left-6 bottom-6 z-10 text-left">
                     <h3 className="text-white text-xl font-semibold">
-                      {p.title}
+                      {portfolio.title}
                     </h3>
                     <p className="text-gray-200 text-sm max-w-xs mt-2">
-                      {p.desc}
+                      {portfolio.description}
                     </p>
                     <button className="mt-4 inline-flex items-center gap-2 bg-[#3780B2] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#006666] transition">
-                      View Project <ExternalLink size={14} />
+                      {portfolio.button_text} <ExternalLink size={14} />
                     </button>
                   </div>
                 </div>

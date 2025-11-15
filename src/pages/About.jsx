@@ -1,25 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AboutBanner from "../components/about/AboutBanner";
 import MissionVision from "../components/about/MissionVision";
 import AboutCompany from "../components/about/AboutCompany";
 import TeamSection from "../components/about/TeamSection";
-import SlidingText from "../components/home/slidingTexts";
+
+const API_URL = "http://localhost:1337";
 
 const About = () => {
+  const [aboutData, setAboutData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAbout = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/about?populate=*`);
+        const json = await res.json();
+        setAboutData(json.data);
+      } catch (err) {
+        console.error("Failed to fetch About data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchAbout();
+  }, []);
+
+  if (loading) return <p className="text-center py-10">Loading...</p>;
+  if (!aboutData) return <p className="text-center py-10">No data found.</p>;
+
+  const banner = aboutData.about_bg_image?.url;
+  const aboutImage = aboutData.who_we_are_image?.url;
+  const missionImage = aboutData.our_mission_image?.url;
+  const vissionImage = aboutData.our_vission_image?.url;
+  const missionVision = aboutData.mission_vision || [];
+  const teamMembers = aboutData.team_members || [];
+
   return (
     <div>
       <AboutBanner
-        title="About Our Company"
-        backgroundImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80"
+        title={aboutData?.about_title}
+        backgroundImage={`${API_URL}${banner}`}
       />
       <AboutCompany
-        image="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80"
-        heading="Who We Are"
-        text="We are a global software platform development company dedicated to delivering high-performing, scalable, and secure digital solutions. Our mission is to empower businesses through innovative technology, streamline operations, and drive sustainable growth by combining creativity, technical expertise, and a deep understanding of modern digital transformation."
+        image={`${API_URL}${aboutImage}`}
+        heading={aboutData?.who_we_are_title}
+        text={aboutData?.who_we_are_description}
       />
-      <MissionVision />
-      <TeamSection />
-      {/* <AboutCTA /> */}
+      <MissionVision
+        missionImage={`${API_URL}${missionImage}`}
+        vissionImage={`${API_URL}${vissionImage}`}
+        data={aboutData}
+      />
+      <TeamSection title={aboutData.team_title} teams={aboutData.Team} />
     </div>
   );
 };

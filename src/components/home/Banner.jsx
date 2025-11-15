@@ -12,21 +12,21 @@ const slides = [
     title: "Innovative Software Platforms",
     desc: "We design scalable platforms that transform your business vision into digital reality.",
     color: "#3780B2",
-    icon: "https://cdn-icons-png.flaticon.com/512/2721/2721291.png",
+    icon: "http://localhost:1337/uploads/unlema_banner_icon_3_ff0a8d9fdf.png",
   },
   {
     image: "https://images.unsplash.com/photo-1556767576-cfba9fdacb9e",
     title: "Empowering Digital Growth",
     desc: "From idea to implementation, we deliver technology that accelerates growth.",
     color: "#008081",
-    icon: "https://cdn-icons-png.flaticon.com/512/2721/2721261.png",
+    icon: "http://localhost:1337/uploads/unlema_banner_icon_3_ff0a8d9fdf.png",
   },
   {
     image: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61",
     title: "Cloud-Based Future",
     desc: "Harness the power of modern infrastructure with our secure cloud solutions.",
     color: "#3780B2",
-    icon: "https://cdn-icons-png.flaticon.com/512/2721/2721291.png",
+    icon: "http://localhost:1337/uploads/unlema_banner_icon_3_ff0a8d9fdf.png",
   },
 ];
 
@@ -54,7 +54,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <section className="relative w-full h-[90vh] text-white overflow-hidden">
+    <section className="relative w-full h-[70vh] text-white overflow-hidden">
       <Swiper
         ref={swiperRef}
         modules={[Autoplay, Pagination, EffectFade]}
@@ -78,7 +78,7 @@ const Banner = () => {
                   <img
                     src={slide.icon}
                     alt="slide icon"
-                    className="w-24 h-24 object-contain drop-shadow-lg animate-fadeIn"
+                    className="w-52 h-24 object-contain drop-shadow-lg animate-fadeIn"
                   />
                 </div>
 

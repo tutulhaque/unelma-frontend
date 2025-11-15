@@ -1,6 +1,6 @@
 import React from "react";
 
-const MissionVision = () => {
+const MissionVision = ({ missionImage, vissionImage, data }) => {
   return (
     <section className="w-full">
       {/* Mission Row */}
@@ -8,19 +8,17 @@ const MissionVision = () => {
         {/* Text Left */}
         <div className="flex flex-col justify-center p-10 bg-gradient-to-r from-[#E0F7F4] to-[#bfddd9] text-gray-800">
           <h2 className="text-4xl font-bold mb-4">
-            Our <span className="text-[#3780B2]">Mission</span>
+            {data.our_mission_title}
+            <span className="text-[#3780B2]">Mission</span>
           </h2>
           <p className="text-lg leading-relaxed">
-            To deliver best-in-class digital platforms that empower our clients
-            to innovate, scale, and transform their businesses in a rapidly
-            evolving digital world. We strive to merge creativity with
-            technology to create lasting impact.
+            {data.our_mission_description}
           </p>
         </div>
         {/* Image Right */}
         <div>
           <img
-            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200"
+            src={missionImage}
             alt="Our Mission"
             className="w-full h-full object-cover"
           />
@@ -32,7 +30,7 @@ const MissionVision = () => {
         {/* Image Left */}
         <div>
           <img
-            src="http://localhost:1337/uploads/blog_1_9f0922de66.avif?auto=format&fit=crop&q=80&w=1200"
+            src={vissionImage}
             alt="Our Vision"
             className="w-full h-full object-cover"
           />
@@ -40,12 +38,11 @@ const MissionVision = () => {
         {/* Text Right */}
         <div className="flex flex-col justify-center p-10 bg-gray-100 text-gray-800">
           <h2 className="text-4xl font-bold mb-4">
-            Our <span className="text-[#3780B2]">Vission</span>
+            {data.our_vission_title}
+            <span className="text-[#3780B2]">Vission</span>
           </h2>
           <p className="text-lg leading-relaxed">
-            To become the trusted global technology partner, leading innovation
-            through sustainable solutions and empowering businesses to thrive in
-            the digital era with efficiency, creativity, and integrity.
+            {data.our_vission_description}
           </p>
         </div>
       </div>

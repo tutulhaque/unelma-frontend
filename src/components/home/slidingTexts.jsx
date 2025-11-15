@@ -1,39 +1,29 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
-const slidingTexts = [
-  "Branding +++",
-  "Marketing +++",
-  "UX Research +++",
-  "Mock Up +++",
-  "Development +++",
-  "Website +++",
-  "Cloud +++",
-  "Email Marketing +++",
-];
-
-const SlidingText = () => {
+const SlidingText = ({ slidingTexts }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
     const container = containerRef.current;
-    const totalWidth = container.scrollWidth / 2;
-    const duration = 25; // slower, smoother
 
-    // Infinite horizontal slide
+    const totalWidth = container.scrollWidth / 2; // width of one set
+    const duration = 25; // adjust for speed
+
+    // Infinite loop animation
     gsap.to(container, {
       x: -totalWidth,
-      repeat: -1,
       ease: "linear",
+      repeat: -1,
       duration,
     });
 
-    // Pulse animation for each text
+    // Optional: subtle pulse animation
     gsap.to(".sliding-item", {
       opacity: 0.6,
       scale: 0.95,
       duration: 1.5,
-      yoyo: "true",
+      yoyo: true,
       repeat: -1,
       ease: "power1.inOut",
       stagger: 0.2,
@@ -47,32 +37,29 @@ const SlidingText = () => {
         background: "linear-gradient(90deg, #3780B2, #008081)",
       }}
     >
-      {/* Shimmer overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
+      {/* shimmer effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
 
       <div
         ref={containerRef}
         className="flex whitespace-nowrap space-x-10 text-white text-2xl font-bold items-center h-full"
       >
-        {slidingTexts.concat(slidingTexts).map((text, i) => (
+        {/* Render two sets of texts for smooth loop */}
+        {[...slidingTexts, ...slidingTexts].map((item, index) => (
           <span
-            key={i}
+            key={index}
             className="sliding-item drop-shadow-lg tracking-wide transition-all duration-500"
           >
-            {text}
+            {item.title}
           </span>
         ))}
       </div>
 
-      {/* Shimmer animation style */}
+      {/* shimmer animation */}
       <style>{`
         @keyframes shimmer {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
         }
         .animate-shimmer {
           animation: shimmer 6s linear infinite;

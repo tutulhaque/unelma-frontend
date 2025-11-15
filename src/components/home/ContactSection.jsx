@@ -1,8 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 
-const ContactSection = () => {
+const ContactSection = ({ title, description }) => {
+  const API_URL = "http://localhost:1337";
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+
+  // Handle input change
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccess(false);
+    setError(false);
+
+    try {
+      const res = await fetch(`${API_URL}/api/contact-forms`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: formData, // ✅ Strapi v4 expects { data: {...} }
+        }),
+      });
+
+      if (res.ok) {
+        setSuccess(true);
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      console.error("Error submitting form:", err);
+      setError(true);
+    }
+
+    setLoading(false);
+  };
+
   return (
     <section className="relative py-20 px-6 bg-gradient-to-b from-[#FFF9F7] to-[#F0FFFC]">
       <div className="max-w-5xl mx-auto text-center mb-12">
@@ -12,18 +61,16 @@ const ContactSection = () => {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-bold text-gray-800 mb-4"
         >
-          Get in{" "}
+          {title}{" "}
           <span className="text-transparent bg-clip-text bg-[#3780B2]">
             Touch
           </span>
         </motion.h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Have questions, ideas, or opportunities? Drop your message below and
-          let’s connect!
-        </p>
+        <p className="text-gray-600 max-w-2xl mx-auto">{description}</p>
       </div>
 
       <motion.form
+        onSubmit={handleSubmit}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -35,6 +82,9 @@ const ContactSection = () => {
             <input
               type="text"
               id="fullName"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
               className="peer w-full border-b-2 border-gray-300 bg-transparent py-3 text-gray-800 focus:outline-none focus:border-[#3780B2]"
               placeholder=" "
               required
@@ -52,6 +102,9 @@ const ContactSection = () => {
             <input
               type="email"
               id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               className="peer w-full border-b-2 border-gray-300 bg-transparent py-3 text-gray-800 focus:outline-none focus:border-[#3780B2]"
               placeholder=" "
               required
@@ -69,6 +122,9 @@ const ContactSection = () => {
             <input
               type="tel"
               id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
               className="peer w-full border-b-2 border-gray-300 bg-transparent py-3 text-gray-800 focus:outline-none focus:border-[#3780B2]"
               placeholder=" "
             />
@@ -84,6 +140,9 @@ const ContactSection = () => {
           <div className="relative md:col-span-2">
             <textarea
               id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
               rows="5"
               className="peer w-full border-b-2 border-gray-300 bg-transparent py-3 text-gray-800 focus:outline-none focus:border-[#3780B2]"
               placeholder=" "
@@ -98,15 +157,31 @@ const ContactSection = () => {
           </div>
         </div>
 
+        {/* Button */}
         <div className="flex justify-center mt-8">
           <motion.button
+            type="submit"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            disabled={loading}
             className="bg-[#3780B2] text-white px-8 py-3 rounded-full shadow-md hover:shadow-lg flex items-center gap-2 font-semibold"
           >
-            Send Message <Send className="w-4 h-4" />
+            {loading ? "Sending..." : "Send Message"}{" "}
+            <Send className="w-4 h-4" />
           </motion.button>
         </div>
+
+        {/* Status Messages */}
+        {success && (
+          <p className="text-green-600 text-center mt-4">
+            ✅ Message sent successfully!
+          </p>
+        )}
+        {error && (
+          <p className="text-red-600 text-center mt-4">
+            ❌ Failed to send message. Try again later.
+          </p>
+        )}
       </motion.form>
     </section>
   );
